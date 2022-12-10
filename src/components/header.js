@@ -52,7 +52,11 @@ const Header = ({ data }) => {
           zIndex: 2,
         }}
       >
-        {isDesktop && <StaticImage src="../images/logo.png" alt="logo" />}
+        {isDesktop && (
+          <div>
+            <StaticImage src="../images/logo.png" alt="logo" />
+          </div>
+        )}
 
         <Button size="l" onClick={openSidePanel} theme="invert">
           Меню
