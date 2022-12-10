@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"
-import { Flex } from "@semcore/flex-box"
+import { Flex, Box } from "@semcore/flex-box"
 import Link from "@semcore/link"
 import Button from "@semcore/button"
 import { List, Text } from "@semcore/typography"
@@ -53,9 +53,9 @@ const Header = ({ data }) => {
         }}
       >
         {isDesktop && (
-          <div>
+          <Box>
             <StaticImage src="../images/logo.png" alt="logo" />
-          </div>
+          </Box>
         )}
 
         <Button size="l" onClick={openSidePanel} theme="invert">
