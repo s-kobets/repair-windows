@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { StaticImage, GatsbyImage, getImage } from 'gatsby-plugin-image';
+import React, { useState, useEffect } from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
 
-import { Flex, Box } from '@semcore/flex-box';
-import { Text } from '@semcore/typography';
-import Accordion from '@semcore/accordion';
-import Link from '@semcore/link';
-import { Col, Row } from '@semcore/grid';
-import Form from '../components/form';
-import Breakpoints from '@semcore/breakpoints';
-import Table from '@semcore/data-table'
+import { Flex, Box } from "@semcore/flex-box"
+import { Text } from "@semcore/typography"
+import Button from "@semcore/button"
+import Link from "@semcore/link"
+import { Col, Row } from "@semcore/grid"
+import Form from "../components/form"
+import Breakpoints from "@semcore/breakpoints"
+import Table from "@semcore/data-table"
 
-import Layout from '../components/layout';
-import Seo from '../components/seo';
+import Layout from "../components/layout"
+import Seo from "../components/seo"
 
 const IndexInnerPage = ({ index }) => {
   const data = useStaticQuery(graphql`
@@ -28,9 +28,10 @@ const IndexInnerPage = ({ index }) => {
           skype
           tel
           description
+          legal
         }
       }
-      allContentfulRepairWindowServices{
+      allContentfulRepairWindowServices {
         nodes {
           title
           description {
@@ -55,11 +56,30 @@ const IndexInnerPage = ({ index }) => {
           price
         }
       }
+      allContentfulRepairWindowAbout {
+        nodes {
+          title
+          description {
+            description
+          }
+        }
+      }
+      allContentfulRepaireWindowsTesting {
+        nodes {
+          title
+          description {
+            description
+          }
+        }
+      }
     }
-  `);
+  `)
 
   const contact =
-    data.contentfulRepairWindows.childContentfulRepairWindowsContactJsonNode;
+    data.contentfulRepairWindows.childContentfulRepairWindowsContactJsonNode
+
+  const about = data.allContentfulRepairWindowAbout.nodes[0]
+  const testing = data.allContentfulRepaireWindowsTesting.nodes[0]
 
   return (
     <Layout>
@@ -74,21 +94,25 @@ const IndexInnerPage = ({ index }) => {
         position="relative"
         className="container-x image-block"
         w="100%"
+        pt={40}
         style={{
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         <StaticImage
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             zIndex: -1,
-            filter: 'brightness(50%)'
+            filter: "brightness(50%)",
           }}
-          width="100%" height="100%" src="../images/slide_1.jpg" alt="slide_1"
+          width="100%"
+          height="100%"
+          src="../images/slide_1.jpg"
+          alt="slide_1"
         />
         <Text
           tag="h2"
@@ -97,12 +121,39 @@ const IndexInnerPage = ({ index }) => {
           bold
           direction="column"
           m="auto"
+          styles={{ wordBreak: "break-word" }}
         >
           {data.contentfulRepairWindows?.title}
-          <Text tag="p" className="custom-description" mt={4} textAlign='left' size={[600, 500][index]}>
+          <Text
+            tag="p"
+            className="custom-description"
+            mt={4}
+            textAlign="left"
+            size={[600, 500][index]}
+          >
             {data.contentfulRepairWindows?.description?.description}
           </Text>
         </Text>
+      </Flex>
+
+      {/* About */}
+      <Flex id="about" className="container-x container-y">
+        <Box style={{ width: ["60%", "100%"][index] }}>
+          <Text tag="h2" mb={10}>
+            {about.title}
+          </Text>
+          <Text tag="pre" size={300} style={{ whiteSpace: "break-spaces" }}>
+            {about.description.description}
+          </Text>
+        </Box>
+
+        <Box
+          w="40%"
+          className="about__image"
+          style={{ display: ["block", "none"][index] }}
+        >
+          <StaticImage height="100%" src="../images/about.jpg" alt="about" />
+        </Box>
       </Flex>
 
       {/* Services */}
@@ -112,77 +163,57 @@ const IndexInnerPage = ({ index }) => {
         direction="column"
         alignItems="center"
         justifyContent="center"
+        style={{ backgroundColor: "#f0f0f0" }}
       >
         <Box w={156} h={156}>
           <StaticImage src="../images/service.jpg" alt="service" />
         </Box>
 
-        <Text tag="h2" my={10}>
+        <Text tag="h2" mt={10}>
           Оказываемые услуги
         </Text>
 
-        <Box
-          wMax="600px"
-          style={{
-            borderBottom: '1px solid #eeeeee',
-          }}
-        >
-          <Accordion>
-            {data.allContentfulRepairWindowServices.nodes.map((item) => (
-              <Accordion.Item value={item.title} key={item.title}>
-                <Accordion.Item.Toggle
-                  position="relative"
-                  tag={Flex}
-                  p="27px 50px 27px 0"
-                  alignItems="center"
-                  style={{
-                    borderTop: '1px solid #eeeeee',
-                  }}
-                >
-                  <Text size={400} bold>
-                    {item.title}
-                  </Text>
-                  <Accordion.Item.Chevron
-                    position="absolute"
-                    right="0"
-                    color="stone"
-                    mr={2}
-                    tag="svg"
-                    width="24px"
-                    height="24px"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g
-                      stroke="none"
-                      stroke-width="1px"
-                      fill="none"
-                      fill-rule="evenodd"
-                      stroke-linecap="square"
-                    >
-                      <g
-                        transform="translate(1.000000, 1.000000)"
-                        stroke="#bd9840"
-                      >
-                        <path d="M0,11 L22,11"></path>
-                        <path d="M11,0 L11,22"></path>
-                      </g>
-                    </g>
-                  </Accordion.Item.Chevron>
-                </Accordion.Item.Toggle>
-                <Accordion.Item.Collapse>
-                  <Text
-                    tag="pre"
-                    size={300}
-                    style={{ whiteSpace: 'break-spaces' }}
-                  >
-                    {item.description.description}
-                  </Text>
-                </Accordion.Item.Collapse>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        </Box>
+        <Row gutter={10} justifyContent="center">
+          {data.allContentfulRepairWindowServices.nodes.map(item => (
+            <Col span={4} sm={6} xs={12} wMax="320px" mt={10} key={item.title}>
+              <Flex
+                h="150px"
+                p={4}
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
+                style={{
+                  border: "1px solid gray",
+                  borderRadius: "4px",
+                }}
+              >
+                <Text textAlign="center" size={400} bold>
+                  {item.title}
+                </Text>
+                <Button tag="a" href="#contacts" size="l" use="primary">
+                  Заказать
+                </Button>
+              </Flex>
+            </Col>
+          ))}
+        </Row>
+      </Flex>
+
+      {/* Testing */}
+      <Flex
+        id="testing"
+        className="container-x container-y"
+        direction="column"
+        wMax="600px"
+        m="0 auto"
+      >
+        <Text tag="h2" mb={10}>
+          {testing.title}
+        </Text>
+
+        <Text tag="pre" size={400} style={{ whiteSpace: "break-spaces" }}>
+          {testing.description.description}
+        </Text>
       </Flex>
 
       {/* Advantages */}
@@ -192,14 +223,14 @@ const IndexInnerPage = ({ index }) => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ background: 'antiquewhite' }}
+        style={{ background: "#00a3f833" }}
       >
         <Text tag="h2" mt={10}>
           Как мы работаем
         </Text>
 
         <Row gutter={10} mt={10} justifyContent="center">
-          {data.allContentfulRepairWindowWork.nodes.map((item) => (
+          {data.allContentfulRepairWindowWork.nodes.reverse().map(item => (
             <Col
               span={4}
               sm={6}
@@ -215,7 +246,7 @@ const IndexInnerPage = ({ index }) => {
               <Box
                 w="100px"
                 h="100px"
-                style={{ borderRadius: '50%', overflow: 'hidden' }}
+                style={{ borderRadius: "50%", overflow: "hidden" }}
               >
                 <GatsbyImage
                   image={getImage(item.icon.gatsbyImageData)}
@@ -241,12 +272,17 @@ const IndexInnerPage = ({ index }) => {
         alignItems="center"
         justifyContent="center"
       >
-
         <Text tag="h2" mt={10}>
           Наши цены
         </Text>
 
-        <Table use="secondary" wMin="100%" mt={10} data={data.allContentfulRepairWindowPrice.nodes}>
+        <Table
+          use="secondary"
+          mt={10}
+          wMax="800px"
+          w="100%"
+          data={data.allContentfulRepairWindowPrice.nodes}
+        >
           <Table.Head>
             <Table.Column name="name" children="Наименование работ" />
             <Table.Column name="price" children="Цена" />
@@ -256,8 +292,8 @@ const IndexInnerPage = ({ index }) => {
               {(props, row, index) => {
                 if (index % 2) {
                   return {
-                    theme: 'info'
-                  };
+                    theme: "info",
+                  }
                 }
               }}
             </Table.Row>
@@ -269,77 +305,60 @@ const IndexInnerPage = ({ index }) => {
       <Form />
 
       {/* Footer */}
-      <Row tag={Flex}>
-        <Col md={6} sm={12} xs={12} mb={0} w="100%" h="400px" p={0}>
-          <Box
-            tag="iframe"
-            width="100%"
-            height="100%"
-            mb={0}
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3A86509c5e003e91f40711b96e38b482d83c20e0a750175436c1f5f7d827e30888&amp;source=constructor"
-            frameborder="0"
-          />
-        </Col>
-        <Col
-          tag={Flex}
-          span={6}
-          sm={12}
-          xs={12}
-          p={10}
-          direction="column"
-          style={{ backgroundColor: '#303030', color: '#fff' }}
-        >
-          <Text size={400} bold mb={2}>
-            {contact.fullName}
-          </Text>
-          <Text>
-            Моб.:{' '}
-            <Link color="orange" href={`tel:${contact.tel}`}>
-              {contact.tel}
-            </Link>
-          </Text>
-          <Text>
-            Viber:{' '}
-            <Link color="orange" href={`viber:${contact.tel}`}>
-              {contact.tel}
-            </Link>
-          </Text>
-          <Text>
-            E-mail:{' '}
-            <Link color="orange" href={`mailto:${contact.email}`}>
-              {contact.email}
-            </Link>
-          </Text>
-          <Text>
-            Skype:{' '}
-            <Link color="orange" href={`skype:${contact.skype}`}>
-              {contact.skype}
-            </Link>
-          </Text>
-          <Text size={100} mt={4}>
-            Если Ваш телефонный звонок остался без ответа, то это значит, что я
-            занят, и при возможности сразу же Вам перезвоню.
-            <br /> P.S. Если же я Вам не перезвонил, наберите мой номер еще раз.
-          </Text>
-        </Col>
-      </Row>
+      <Flex
+        p={10}
+        direction="column"
+        style={{ backgroundColor: "#303030", color: "#fff" }}
+      >
+        <Text size={400} bold mb={2}>
+          {contact.fullName}
+        </Text>
+        <Flex alignItems="center" mb={2} style={{ flexWrap: "wrap" }}>
+          <Text>Телефон/Telegram:</Text>
+          {contact.tel.map(tel => (
+            <>
+              <Link key={tel} ml={2} color="orange" href={`tel:${tel}`}>
+                {tel}
+              </Link>
+            </>
+          ))}
+        </Flex>
+        <Text size={200}>{contact.legal}</Text>
+        {/* <Text>
+          E-mail:{" "}
+          <Link color="orange" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </Link>
+        </Text>
+        <Text>
+          Skype:{" "}
+          <Link color="orange" href={`skype:${contact.skype}`}>
+            {contact.skype}
+          </Link>
+        </Text> */}
+        <Text size={100} mt={4}>
+          Если Ваш телефонный звонок остался без ответа, то это значит, что мы
+          заняты, и при возможности сразу же Вам перезвоним.
+          <br />
+        </Text>
+      </Flex>
     </Layout>
-  );
-};
+  )
+}
 
-const IndexPage = (props) => {
-  const [index, updateIndex] = useState(Breakpoints.mediaList.matches());
+const IndexPage = props => {
+  const [index, updateIndex] = useState(Breakpoints.mediaList.matches())
 
   useEffect(() => {
-    const unsubscribe = Breakpoints.mediaList.addListener((index) => {
-      updateIndex(index);
-    });
+    const unsubscribe = Breakpoints.mediaList.addListener(index => {
+      updateIndex(index)
+    })
     return () => {
-      unsubscribe();
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
 
-  return <IndexInnerPage {...props} index={index} />;
-};
+  return <IndexInnerPage {...props} index={index} />
+}
 
-export default IndexPage;
+export default IndexPage

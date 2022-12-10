@@ -406,7 +406,6 @@ pre {
   margin-bottom: 1.45rem;
   font-size: 0.85rem;
   line-height: 1.42;
-  background: hsla(0, 0%, 0%, 0.04);
   border-radius: 3px;
   overflow: auto;
   word-wrap: normal;
@@ -650,4 +649,11 @@ pre tt:after {
   .custom-description {
     white-space: normal;
   }
+}
+
+.about__image img {
+  width: auto;
+  max-height: 100%;
+  object-fit: none !important;
+  max-width: fit-content !important;
 }

@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import React, { useContext } from "react"
+import { useStaticQuery, graphql } from "gatsby"
 
-import { useForm } from 'react-hook-form';
-import { Flex } from '@semcore/flex-box';
-import Tooltip from '@semcore/tooltip';
-import Input from '@semcore/input';
-import Button from '@semcore/button';
-import Textarea from '@semcore/textarea';
-import { Text } from '@semcore/typography';
-import Breakpoints from '@semcore/breakpoints';
+import { useForm } from "react-hook-form"
+import { Flex } from "@semcore/flex-box"
+import Tooltip from "@semcore/tooltip"
+import Input from "@semcore/input"
+import Button from "@semcore/button"
+import Textarea from "@semcore/textarea"
+import { Text } from "@semcore/typography"
+import Breakpoints from "@semcore/breakpoints"
 
 const Form = () => {
-  const index = useContext(Breakpoints.Context);
+  const index = useContext(Breakpoints.Context)
   const data = useStaticQuery(graphql`
     query Form {
       site {
@@ -21,32 +21,32 @@ const Form = () => {
         }
       }
     }
-  `);
-  const { TELEGRAM_TOKEN, TELEGRAM_CHAT_ID } = data.site.siteMetadata;
+  `)
+  const { TELEGRAM_TOKEN, TELEGRAM_CHAT_ID } = data.site.siteMetadata
 
   const { register, handleSubmit, errors, reset } = useForm({
-    mode: 'onBlur',
+    mode: "onBlur",
     shouldFocusError: false,
-  });
+  })
 
   const onSubmit = async (data, e) => {
-    e.preventDefault();
-    reset({ email: '', name: '', trable: '' });
+    e.preventDefault()
+    reset({ email: "", name: "", trable: "" })
     try {
       await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           text: JSON.stringify(data),
         }),
-      });
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -56,7 +56,7 @@ const Form = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ background: 'antiquewhite' }}
+        style={{ background: "#00a3f833" }}
       >
         <Text tag="h2" mt={10}>
           Отправить запрос и получить консультацию
@@ -83,17 +83,17 @@ const Form = () => {
 
           <Tooltip
             size="l"
-            interaction={errors['email'] ? 'focus' : 'none'}
-            placement={['right', 'top'][index]}
+            interaction={errors["email"] ? "focus" : "none"}
+            placement={["right", "top"][index]}
             theme="warning"
-            title={errors['email']?.message}
+            title={errors["email"]?.message}
             tag={Input}
-            state={errors['email'] ? 'invalid' : 'normal'}
+            state={errors["email"] ? "invalid" : "normal"}
           >
             <Input.Value
               id="email"
               name="email"
-              ref={register({ required: 'Enter e-mail or phone' })}
+              ref={register({ required: "Enter e-mail or phone" })}
             />
           </Tooltip>
 
@@ -107,7 +107,13 @@ const Form = () => {
           <Text size={300} tag="label" mt={10} mb={1} htmlFor="trable">
             Ваша проблема
           </Text>
-          <Textarea id="trable" name="trable" size="l" rows={5} ref={register} />
+          <Textarea
+            id="trable"
+            name="trable"
+            size="l"
+            rows={5}
+            ref={register}
+          />
           <Button
             type="submit"
             size="l"
@@ -121,7 +127,7 @@ const Form = () => {
         </Flex>
       </Flex>
     </>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form
