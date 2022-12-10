@@ -52,11 +52,9 @@ const Header = ({ data }) => {
           zIndex: 2,
         }}
       >
-        <StaticImage
-          className="is_desktop"
-          src="../images/logo.png"
-          alt="logo"
-        />
+        <div className="is_desktop">
+          <StaticImage src="../images/logo.png" alt="logo" />
+        </div>
 
         <Button size="l" onClick={openSidePanel} theme="invert">
           Меню

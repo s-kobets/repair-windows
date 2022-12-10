@@ -81,7 +81,6 @@ const IndexInnerPage = ({ index }) => {
   const about = data.allContentfulRepairWindowAbout.nodes[0]
   const testing = data.allContentfulRepaireWindowsTesting.nodes[0]
 
-  console.log(123, index)
   return (
     <Layout>
       <Seo
