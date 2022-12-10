@@ -657,3 +657,8 @@ pre tt:after {
   object-fit: none !important;
   max-width: fit-content !important;
 }
+
+.header__phones {
+  width: 50%;
+  text-align: center;
+}

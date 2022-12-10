@@ -52,29 +52,31 @@ const Header = ({ data }) => {
           zIndex: 2,
         }}
       >
-        {isDesktop && (
-          <Box>
-            <StaticImage src="../images/logo.png" alt="logo" />
-          </Box>
-        )}
+        <StaticImage
+          className="is_desktop"
+          src="../images/logo.png"
+          alt="logo"
+        />
 
         <Button size="l" onClick={openSidePanel} theme="invert">
           Меню
         </Button>
 
-        <Flex direction="column" w="50%" style={{ textAlign: "center" }}>
-          {tel.map(item => (
-            <Link
-              key={item}
-              tag="a"
-              href={`tel:${item}`}
-              size={400}
-              color="white"
-              bold
-            >
-              {item}
-            </Link>
-          ))}
+        <Flex direction="column" className="header__phones">
+          {tel
+            ? tel.map(item => (
+                <Link
+                  key={item}
+                  tag="a"
+                  href={`tel:${item}`}
+                  size={400}
+                  color="white"
+                  bold
+                >
+                  {item}
+                </Link>
+              ))
+            : null}
         </Flex>
 
         <Button tag="a" href="#contacts" size="l" theme="invert">

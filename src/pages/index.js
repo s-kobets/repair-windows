@@ -81,6 +81,7 @@ const IndexInnerPage = ({ index }) => {
   const about = data.allContentfulRepairWindowAbout.nodes[0]
   const testing = data.allContentfulRepaireWindowsTesting.nodes[0]
 
+  console.log(123, index)
   return (
     <Layout>
       <Seo
@@ -121,7 +122,7 @@ const IndexInnerPage = ({ index }) => {
           bold
           direction="column"
           m="auto"
-          styles={{ wordBreak: "break-word" }}
+          style={{ wordBreak: "break-word" }}
         >
           {data.contentfulRepairWindows?.title}
           <Text
@@ -138,7 +139,7 @@ const IndexInnerPage = ({ index }) => {
 
       {/* About */}
       <Flex id="about" className="container-x container-y">
-        <Box style={{ width: ["60%", "100%"][index] }}>
+        <Box w="100%" wMax="800px">
           <Text tag="h2" mb={10}>
             {about.title}
           </Text>
@@ -147,11 +148,7 @@ const IndexInnerPage = ({ index }) => {
           </Text>
         </Box>
 
-        <Box
-          w="40%"
-          className="about__image"
-          style={{ display: ["block", "none"][index] }}
-        >
+        <Box w="40%" className="about__image is_desktop">
           <StaticImage height="100%" src="../images/about.jpg" alt="about" />
         </Box>
       </Flex>
