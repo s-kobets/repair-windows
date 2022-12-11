@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react"
-import { Flex, Box } from "@semcore/flex-box"
+import React, { useState } from "react"
+import { Flex } from "@semcore/flex-box"
 import Link from "@semcore/link"
 import Button from "@semcore/button"
 import { List, Text } from "@semcore/typography"
 import SidePanel from "@semcore/side-panel"
 import Divider from "@semcore/divider"
-import Breakpoints from "@semcore/breakpoints"
 import { StaticImage } from "gatsby-plugin-image"
 
 const Navigation = [
@@ -18,7 +17,6 @@ const Navigation = [
 
 const Header = ({ data }) => {
   const [visible, setVisible] = useState(false)
-  const index = useContext(Breakpoints.Context)
   const { tel = [], fullName } = data
   const onVisiblePanel = visible => {
     setVisible(visible)
@@ -32,8 +30,6 @@ const Header = ({ data }) => {
   const closeSidePanel = () => {
     onVisiblePanel(false)
   }
-
-  const isDesktop = index === 0
 
   return (
     <>

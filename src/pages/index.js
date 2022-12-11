@@ -9,10 +9,10 @@ import Link from "@semcore/link"
 import { Col, Row } from "@semcore/grid"
 import Form from "../components/form"
 import Breakpoints from "@semcore/breakpoints"
-import Table from "@semcore/data-table"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { TablePrices } from "../components/table-prices"
 
 const IndexInnerPage = ({ index }) => {
   const data = useStaticQuery(graphql`
@@ -48,12 +48,6 @@ const IndexInnerPage = ({ index }) => {
           icon {
             gatsbyImageData
           }
-        }
-      }
-      allContentfulRepairWindowPrice {
-        nodes {
-          name
-          price
         }
       }
       allContentfulRepairWindowAbout {
@@ -142,7 +136,7 @@ const IndexInnerPage = ({ index }) => {
           <Text tag="h2" mb={10}>
             {about.title}
           </Text>
-          <Text tag="pre" size={300} style={{ whiteSpace: "break-spaces" }}>
+          <Text tag="pre" size={400} style={{ whiteSpace: "break-spaces" }}>
             {about.description.description}
           </Text>
         </Box>
@@ -272,29 +266,7 @@ const IndexInnerPage = ({ index }) => {
           Наши цены
         </Text>
 
-        <Table
-          use="secondary"
-          mt={10}
-          wMax="800px"
-          w="100%"
-          data={data.allContentfulRepairWindowPrice.nodes}
-        >
-          <Table.Head>
-            <Table.Column name="name" children="Наименование работ" />
-            <Table.Column name="price" children="Цена" />
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              {(props, row, index) => {
-                if (index % 2) {
-                  return {
-                    theme: "info",
-                  }
-                }
-              }}
-            </Table.Row>
-          </Table.Body>
-        </Table>
+        <TablePrices />
       </Flex>
 
       {/* Form */}
