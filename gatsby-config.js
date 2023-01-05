@@ -3,10 +3,9 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://xxxx',
+    siteUrl: "https://repair-windows.ru/",
     author: `@yura`,
     TELEGRAM_TOKEN: `${process.env.TELEGRAM_TOKEN}`,
     TELEGRAM_CHAT_ID: `${process.env.TELEGRAM_CHAT_ID}`,
@@ -44,6 +43,21 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         host: process.env.CONTENTFUL_HOST,
       },
-    }
+    },
+    {
+      resolve: `gatsby-plugin-yandex-metrika`,
+      options: {
+        // The ID of yandex metrika.
+        trackingId: 91954298,
+        // Enables tracking a hash in URL. The default value is `false`.
+        trackHash: true,
+        // Defines where to place the tracking script - `false` means before body (slower loading, more hits)
+        // and `true` means after the body (faster loading, less hits). The default value is `false`.
+        afterBody: true,
+        // Use `defer` attribute of metrika script. If set to `false` - script will be loaded with `async` attribute.
+        // Async enables earlier loading of the metrika but it can negatively affect page loading speed. The default value is `false`.
+        defer: false,
+      },
+    },
   ],
-};
+}
