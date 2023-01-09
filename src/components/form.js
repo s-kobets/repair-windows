@@ -31,7 +31,6 @@ const Form = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault()
-    reset({ email: "", name: "", trable: "" })
     try {
       await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
         method: "POST",
@@ -45,6 +44,8 @@ const Form = () => {
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      reset({ email: "", name: "", trable: "" })
     }
   }
 
