@@ -78,10 +78,10 @@ const IndexInnerPage = ({ index }) => {
   return (
     <Layout>
       <Seo
-        title="Ремонт окон, Санкт Петербург"
+        title="Ремонт окон, Москва, Санкт Петербург"
         description="Качественно, недорого"
         lang="ru"
-        keywords="ремонт, окна, Санкт Петербург"
+        keywords="ремонт, окна, Москва, Санкт Петербург"
       />
 
       <Flex
