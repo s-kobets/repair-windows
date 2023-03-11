@@ -4,13 +4,13 @@ import { useStaticQuery, graphql } from "gatsby"
 import { useForm } from "react-hook-form"
 import { Flex } from "@semcore/flex-box"
 import Tooltip from "@semcore/tooltip"
-import Input from "@semcore/input"
-import Button from "@semcore/button"
 import Textarea from "@semcore/textarea"
 import { Text } from "@semcore/typography"
+import { Col, Row } from "@semcore/grid"
 import Breakpoints from "@semcore/breakpoints"
+import Button from "@semcore/button"
 
-const Form = () => {
+const Feedback = () => {
   const index = useContext(Breakpoints.Context)
   const data = useStaticQuery(graphql`
     query Form {
@@ -45,90 +45,84 @@ const Form = () => {
     } catch (error) {
       console.error(error)
     } finally {
-      reset({ email: "", name: "", trable: "" })
+      reset({ feedback: "" })
     }
   }
 
   return (
-    <>
-      <Flex
-        id="contacts"
-        className="container-x container-y"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ background: "#00a3f833" }}
-      >
-        <Text tag="h2" mt={10}>
-          Отправить запрос и получить консультацию
-        </Text>
+    <Flex
+      id="feedback"
+      className="container-x container-y"
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Text tag="h2" mt={10}>
+        Отзывы
+      </Text>
 
+      <Row gutter={10} mt={10} justifyContent="center">
+        <Col
+          span={4}
+          sm={6}
+          xs={12}
+          flex={1}
+          mt="20px"
+          direction="column"
+          tag={Flex}
+          wMax="320px"
+        >
+          <Flex
+            style={{
+              border: "1px solid #c4c7cf",
+              borderRadius: "6px",
+              textAlign: "center",
+              backgroundColor: "#f0f0f0",
+            }}
+            p={2}
+            h="100%"
+            alignItems="center"
+          >
+            Оставьте отзыв и получите персональную скидку или бесплатную
+            консутацию
+          </Flex>
+        </Col>
         <Flex
           tag="form"
           method="post"
           netlify-honeypot="bot-field"
           data-netlify="true"
           name="contact"
-          mt={5}
-          wMax="600px"
-          w="100%"
           wMin="320px"
           direction="column"
           onSubmit={handleSubmit(onSubmit)}
         >
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
-          <Text size={300} tag="label" mt={5} mb={1} htmlFor="email">
-            E-mail или телефон
+          <Text size={300} tag="label" mt={5} mb={1} htmlFor="feedback">
+            Комментарий
           </Text>
-
           <Tooltip
-            size="l"
-            interaction={errors["email"] ? "focus" : "none"}
+            interaction={errors["feedback"] ? "focus" : "none"}
             placement={["right", "top"][index]}
             theme="warning"
-            title={errors["email"]?.message}
-            tag={Input}
-            state={errors["email"] ? "invalid" : "normal"}
+            title={errors["feedback"]?.message}
           >
-            <Input.Value
-              id="email"
-              name="email"
-              ref={register({ required: "Введите e-mail или phone" })}
+            <Textarea
+              id="feedback"
+              name="feedback"
+              ref={register({ required: "Оставьте отзыв" })}
+              state={errors["feedback"] ? "invalid" : "normal"}
+              rows={4}
             />
           </Tooltip>
-
-          <Text size={300} tag="label" mt={10} mb={1} htmlFor="name">
-            Ваше имя
-          </Text>
-          <Input size="l">
-            <Input.Value name="name" id="name" ref={register} />
-          </Input>
-
-          <Text size={300} tag="label" mt={10} mb={1} htmlFor="trable">
-            Ваша проблема
-          </Text>
-          <Textarea
-            id="trable"
-            name="trable"
-            size="l"
-            rows={5}
-            ref={register}
-          />
-          <Button
-            type="submit"
-            size="l"
-            use="primary"
-            theme="info"
-            mt={10}
-            w="100%"
-          >
+          <Button type="submit" size="l" use="primary" theme="info" mt={10}>
             Отправить
           </Button>
         </Flex>
-      </Flex>
-    </>
+      </Row>
+    </Flex>
   )
 }
 
-export default Form
+export default Feedback

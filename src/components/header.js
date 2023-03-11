@@ -13,6 +13,7 @@ const Navigation = [
   { title: "Выявление проблемы", href: "#testing" },
   { title: "Как мы работаем", href: "#work" },
   { title: "Контакты", href: "#contacts" },
+  { title: "Отзывы", href: "#feedback" },
 ]
 
 const Header = ({ data }) => {

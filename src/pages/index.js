@@ -9,6 +9,7 @@ import Link from "@semcore/link"
 import { Col, Row } from "@semcore/grid"
 import Form from "../components/form"
 import Breakpoints from "@semcore/breakpoints"
+import Feedback from "../components/feedback"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -287,6 +288,9 @@ const IndexInnerPage = ({ index }) => {
 
       {/* Form */}
       <Form />
+
+      {/* Feedback */}
+      <Feedback />
 
       {/* Footer */}
       <Flex
