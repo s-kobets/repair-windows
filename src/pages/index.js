@@ -239,11 +239,11 @@ const IndexInnerPage = ({ index }) => {
         <Row gutter={10} mt={10} justifyContent="center">
           {data.allContentfulRepairWindowWork.nodes.reverse().map(item => (
             <Col
+              key={item.title}
               span={4}
               sm={6}
               xs={12}
               mt="20px"
-              key={item.title}
               direction="column"
               alignItems="center"
               justifyContent="center"
