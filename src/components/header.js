@@ -89,14 +89,19 @@ const Header = ({ data }) => {
 
         <Flex direction="column" className="header__phones">
           {tel
-            ? tel.map(item => (
-                <Flex justifyContent="center" style={{ gap: 12 }}>
-                  <Link target="_blank" href={`https://wa.me/${item}`}>
-                    <IconWatsApp />
-                  </Link>
-                  <Link target="_blank" href={`https://t.me/${item}`}>
-                    <IconTelegramApp />
-                  </Link>
+            ? tel.map((item, index) => (
+                <Flex
+                  className={index == 1 && "is_desktop"}
+                  justifyContent="center"
+                >
+                  <Flex gap={2} justifyContent="center">
+                    <Link target="_blank" href={`https://wa.me/${item}`}>
+                      <IconWatsApp />
+                    </Link>
+                    <Link target="_blank" href={`https://t.me/${item}`}>
+                      <IconTelegramApp />
+                    </Link>
+                  </Flex>
                   <Link
                     key={item}
                     tag="a"

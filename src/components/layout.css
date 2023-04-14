@@ -635,6 +635,9 @@ pre tt:after {
   .custom-description {
     white-space: pre;
   }
+  .header__phones > div {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -648,6 +651,9 @@ pre tt:after {
   }
   .custom-description {
     white-space: normal;
+  }
+  .header__phones > div {
+    flex-direction: column;
   }
 }
 
