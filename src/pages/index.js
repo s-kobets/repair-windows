@@ -17,6 +17,7 @@ import { TablePrices } from "../components/table-prices"
 
 // VK counter
 export function Head() {
+  if (process.env.NODE_ENV !== "production") return null
   return (
     <>
       <script type="text/javascript">
@@ -31,13 +32,13 @@ _tmr.push({id: "3316019", type: "pageView", start: (new Date()).getTime()});
 })(document, window, "tmr-code");`}
       </script>
       <noscript>
-        <div>
+        {`<div>
           <img
             src="https://top-fwz1.mail.ru/counter?id=3316019;js=na"
             style="position:absolute;left:-9999px;"
             alt="Top.Mail.Ru"
           />
-        </div>
+        </div>`}
       </noscript>
     </>
   )

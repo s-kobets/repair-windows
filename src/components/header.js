@@ -91,7 +91,7 @@ const Header = ({ data }) => {
           {tel
             ? tel.map((item, index) => (
                 <Flex
-                  className={index == 1 && "is_desktop"}
+                  className={index === 1 && "is_desktop"}
                   justifyContent="center"
                 >
                   <Flex gap={2} justifyContent="center">
