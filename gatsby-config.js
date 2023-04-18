@@ -48,7 +48,7 @@ module.exports = {
       resolve: `gatsby-plugin-yandex-metrika`,
       options: {
         // The ID of yandex metrika.
-        trackingId: 91954298,
+        trackingId: 93259964,
         // Enables tracking a hash in URL. The default value is `false`.
         trackHash: true,
         // Defines where to place the tracking script - `false` means before body (slower loading, more hits)
