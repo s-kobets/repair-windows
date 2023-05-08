@@ -8,12 +8,13 @@ exports.handler = async function (event) {
       },
       body: JSON.stringify({
         chat_id: TELEGRAM_CHAT_ID,
-        text: event.body,
+        text: event?.body,
       }),
     })
 
     return {
       statusCode: 200,
+      body: "success",
     }
   } catch (error) {
     return {
