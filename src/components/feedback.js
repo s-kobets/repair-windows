@@ -51,8 +51,6 @@ const Feedback = () => {
       })
   }, [])
 
-  console.log(123, feedbackList)
-
   return (
     <Flex
       id="feedback"
