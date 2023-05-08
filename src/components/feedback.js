@@ -43,11 +43,11 @@ const Feedback = () => {
 
   const [feedbackList, setFeedbackList] = useState([])
 
-  useEffect(() => {
+  useEffect(async () => {
     fetch("/.netlify/functions/get-feedback")
       .then(res => res.json())
       .then(res => {
-        setFeedbackList(res.records)
+        setFeedbackList(res?.records ?? [])
       })
   }, [])
 
