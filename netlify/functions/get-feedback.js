@@ -17,7 +17,7 @@ exports.handler = async function () {
   } catch (error) {
     return {
       statusCode: 500,
-      error,
+      body: error,
     }
   }
 }
