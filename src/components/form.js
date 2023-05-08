@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import React, { useContext, useState } from "react"
 
 import { useForm } from "react-hook-form"
 import { Flex } from "@semcore/flex-box"
@@ -10,19 +9,11 @@ import Textarea from "@semcore/textarea"
 import { Text } from "@semcore/typography"
 import Breakpoints from "@semcore/breakpoints"
 
+import { SuccessForm } from "./susses-form"
+
 const Form = () => {
   const index = useContext(Breakpoints.Context)
-  const data = useStaticQuery(graphql`
-    query Form {
-      site {
-        siteMetadata {
-          TELEGRAM_TOKEN
-          TELEGRAM_CHAT_ID
-        }
-      }
-    }
-  `)
-  const { TELEGRAM_TOKEN, TELEGRAM_CHAT_ID } = data.site.siteMetadata
+  const [submitForm, setSubmitForm] = useState(false)
 
   const { register, handleSubmit, errors, reset } = useForm({
     mode: "onBlur",
@@ -32,16 +23,14 @@ const Form = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault()
     try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      await fetch(`/.netlify/functions/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: JSON.stringify(data),
-        }),
+        body: JSON.stringify(data),
       })
+      setSubmitForm(true)
     } catch (error) {
       console.error(error)
     } finally {
@@ -75,7 +64,9 @@ const Form = () => {
           wMin="320px"
           direction="column"
           onSubmit={handleSubmit(onSubmit)}
+          position="relative"
         >
+          <SuccessForm visible={submitForm} />
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
           <Text size={300} tag="label" mt={5} mb={1} htmlFor="email">

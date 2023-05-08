@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import React, { useContext, useEffect, useState } from "react"
 
 import { useForm } from "react-hook-form"
 import { Flex } from "@semcore/flex-box"
@@ -9,20 +8,15 @@ import { Text } from "@semcore/typography"
 import { Col, Row } from "@semcore/grid"
 import Breakpoints from "@semcore/breakpoints"
 import Button from "@semcore/button"
+import Input from "@semcore/input"
+import Carousel from "@semcore/carousel"
+import dayjs from "dayjs"
+
+import { SuccessForm } from "./susses-form"
 
 const Feedback = () => {
   const index = useContext(Breakpoints.Context)
-  const data = useStaticQuery(graphql`
-    query Form {
-      site {
-        siteMetadata {
-          TELEGRAM_TOKEN
-          TELEGRAM_CHAT_ID
-        }
-      }
-    }
-  `)
-  const { TELEGRAM_TOKEN, TELEGRAM_CHAT_ID } = data.site.siteMetadata
+  const [submitForm, setSubmitForm] = useState(false)
 
   const { register, handleSubmit, errors, reset } = useForm({
     mode: "onBlur",
@@ -32,22 +26,32 @@ const Feedback = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault()
     try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      await fetch(`/.netlify/functions/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: JSON.stringify(data),
-        }),
+        body: JSON.stringify(data),
       })
+      setSubmitForm(true)
     } catch (error) {
       console.error(error)
     } finally {
-      reset({ feedback: "" })
+      reset({ name: "", feedback: "" })
     }
   }
+
+  const [feedbackList, setFeedbackList] = useState([])
+
+  useEffect(() => {
+    fetch("/.netlify/functions/get-feedback")
+      .then(res => res.json())
+      .then(res => {
+        setFeedbackList(res.records)
+      })
+  }, [])
+
+  console.log(123, feedbackList)
 
   return (
     <Flex
@@ -60,6 +64,27 @@ const Feedback = () => {
       <Text tag="h2" mt={10}>
         Отзывы
       </Text>
+
+      <Carousel w="100%" my={8}>
+        <Flex>
+          <Carousel.Prev />
+          <Carousel.Container>
+            {feedbackList.map(item => (
+              <Carousel.Item key={item.id} px={9}>
+                <i>{dayjs(item.createTime).format("DD/MM/YYYY")}</i>
+                <strong style={{ display: "inline-block", marginLeft: "8px" }}>
+                  {item.fields.name}
+                </strong>
+                <Text tag="p" mt={1}>
+                  {item.fields.feedback}
+                </Text>
+              </Carousel.Item>
+            ))}
+          </Carousel.Container>
+          <Carousel.Next />
+        </Flex>
+        <Carousel.Indicators />
+      </Carousel>
 
       <Row gutter={10} mt={10} justifyContent="center">
         <Col
@@ -95,10 +120,19 @@ const Feedback = () => {
           name="contact"
           wMin="320px"
           direction="column"
+          position="relative"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <SuccessForm visible={submitForm} />
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
+          <Text size={300} tag="label" mt={10} mb={1} htmlFor="name">
+            Ваше имя
+          </Text>
+          <Input size="l">
+            <Input.Value name="name" id="name" ref={register} />
+          </Input>
+
           <Text size={300} tag="label" mt={5} mb={1} htmlFor="feedback">
             Комментарий
           </Text>
