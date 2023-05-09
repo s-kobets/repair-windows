@@ -71,7 +71,7 @@ const Feedback = () => {
             <Carousel.Container>
               {feedbackList.map(item => (
                 <Carousel.Item key={item.id} px={9}>
-                  <i>{dayjs(item.createTime).format("DD/MM/YYYY")}</i>
+                  <i>{dayjs(item.createdTime).format("DD/MM/YYYY")}</i>
                   <strong
                     style={{ display: "inline-block", marginLeft: "8px" }}
                   >
