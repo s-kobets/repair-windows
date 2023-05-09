@@ -67,6 +67,7 @@ const Feedback = () => {
       .then(res => {
         setFeedbackList(res?.records ?? [])
       })
+      .catch(error => console.error(error))
   }, [])
 
   return (
@@ -81,7 +82,7 @@ const Feedback = () => {
         Отзывы
       </Text>
 
-      {feedbackList.length && (
+      {feedbackList.length ? (
         <Carousel w="100%" my={8}>
           <Flex>
             <Carousel.Prev />
@@ -104,7 +105,7 @@ const Feedback = () => {
           </Flex>
           <Carousel.Indicators />
         </Carousel>
-      )}
+      ) : null}
 
       <Row gutter={10} mt={10} justifyContent="center">
         <Col

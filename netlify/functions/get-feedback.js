@@ -15,12 +15,6 @@ exports.handler = async function () {
       body: data ? JSON.stringify(data) : JSON.stringify([]),
     }
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        error,
-        AIRTABLE_BASE_ID,
-      }),
-    }
+    throw new Error(error)
   }
 }
