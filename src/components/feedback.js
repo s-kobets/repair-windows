@@ -81,26 +81,30 @@ const Feedback = () => {
         Отзывы
       </Text>
 
-      <Carousel w="100%" my={8}>
-        <Flex>
-          <Carousel.Prev />
-          <Carousel.Container>
-            {feedbackList.map(item => (
-              <Carousel.Item key={item.id} px={9}>
-                <i>{dayjs(item.createTime).format("DD/MM/YYYY")}</i>
-                <strong style={{ display: "inline-block", marginLeft: "8px" }}>
-                  {item.fields.name}
-                </strong>
-                <Text tag="p" mt={1}>
-                  {item.fields.feedback}
-                </Text>
-              </Carousel.Item>
-            ))}
-          </Carousel.Container>
-          <Carousel.Next />
-        </Flex>
-        <Carousel.Indicators />
-      </Carousel>
+      {feedbackList.length && (
+        <Carousel w="100%" my={8}>
+          <Flex>
+            <Carousel.Prev />
+            <Carousel.Container>
+              {feedbackList.map(item => (
+                <Carousel.Item key={item.id} px={9}>
+                  <i>{dayjs(item.createTime).format("DD/MM/YYYY")}</i>
+                  <strong
+                    style={{ display: "inline-block", marginLeft: "8px" }}
+                  >
+                    {item.fields.name}
+                  </strong>
+                  <Text tag="p" mt={1}>
+                    {item.fields.feedback}
+                  </Text>
+                </Carousel.Item>
+              ))}
+            </Carousel.Container>
+            <Carousel.Next />
+          </Flex>
+          <Carousel.Indicators />
+        </Carousel>
+      )}
 
       <Row gutter={10} mt={10} justifyContent="center">
         <Col

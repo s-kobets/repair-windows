@@ -19,6 +19,7 @@ exports.handler = async function () {
       statusCode: 500,
       body: JSON.stringify({
         error,
+        AIRTABLE_BASE_ID,
       }),
     }
   }
