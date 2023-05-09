@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useStaticQuery, graphql } from "gatsby"
 
 import { useForm } from "react-hook-form"
 import { Flex } from "@semcore/flex-box"
@@ -16,18 +15,6 @@ import dayjs from "dayjs"
 import { SuccessForm } from "./susses-form"
 
 const Feedback = () => {
-  const data = useStaticQuery(graphql`
-    query Form {
-      site {
-        siteMetadata {
-          TELEGRAM_TOKEN
-          TELEGRAM_CHAT_ID
-        }
-      }
-    }
-  `)
-  const { TELEGRAM_TOKEN, TELEGRAM_CHAT_ID } = data.site.siteMetadata
-
   const index = useContext(Breakpoints.Context)
   const [submitForm, setSubmitForm] = useState(false)
 
@@ -39,17 +26,12 @@ const Feedback = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault()
     try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-        // await fetch(`/.netlify/functions/submit-form`, {
+      await fetch(`/.netlify/functions/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: JSON.stringify(data),
-        }),
-        // body: JSON.stringify(data),
+        body: JSON.stringify(data),
       })
       setSubmitForm(true)
     } catch (error) {
