@@ -658,10 +658,11 @@ pre tt:after {
 }
 
 .about__image img {
+  min-width: 350px;
   width: auto;
   max-height: 100%;
-  object-fit: none !important;
-  max-width: fit-content !important;
+  /* object-fit: none !important; */
+  /* max-width: fit-content !important; */
 }
 
 .header__phones {

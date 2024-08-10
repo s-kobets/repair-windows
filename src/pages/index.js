@@ -191,9 +191,7 @@ const IndexInnerPage = ({ index }) => {
         </Box>
 
         <Box w="40%" className="about__image is_desktop">
-          <StaticImage style={{
-            minWidth: "300px",
-          }} height="300" src="../images/about.jpeg" alt="about" />
+          <StaticImage src="../images/about.jpeg" alt="about" />
         </Box>
       </Flex>
 
