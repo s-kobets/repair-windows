@@ -161,11 +161,10 @@ const IndexInnerPage = ({ index }) => {
           bold
           direction="column"
           m="auto"
-          style={{ wordBreak: "break-word" }}
         >
           {data.contentfulRepairWindows?.title}
           <Text
-            tag="p"
+            tag="pre"
             className="custom-description"
             mt={4}
             textAlign="left"
@@ -188,7 +187,9 @@ const IndexInnerPage = ({ index }) => {
         </Box>
 
         <Box w="40%" className="about__image is_desktop">
-          <StaticImage height="100%" src="../images/about.jpg" alt="about" />
+          <StaticImage style={{
+            minWidth: "300px",
+          }} height="300" src="../images/about.jpeg" alt="about" />
         </Box>
       </Flex>
 

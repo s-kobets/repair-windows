@@ -45,7 +45,7 @@ const RowAccordion = React.forwardRef(function ({ value, ...props }, ref) {
 })
 
 export const TablePrices = () => {
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState(["Популярные услуги"])
   return (
     <Accordion value={value} onChange={setValue}>
       <DataTable use="secondary" mt={10} wMax="800px" w="100%" data={data}>
