@@ -161,10 +161,14 @@ const IndexInnerPage = ({ index }) => {
           bold
           direction="column"
           m="auto"
+          style={[{
+            paddingLeft: "20px",
+            paddingRight: "20px",
+          }, {}][index]}
         >
           {data.contentfulRepairWindows?.title}
           <Text
-            tag="pre"
+            tag="p"
             className="custom-description"
             mt={4}
             textAlign="left"
