@@ -108,7 +108,7 @@ const IndexInnerPage = ({ index }) => {
   return (
     <Layout>
       <Seo
-        title="Ремонт окон, Москва, Санкт Петербург"
+        title="Ремонт окон, Москва и Московская область, Санкт-Петербург и Ленинградская область"
         description="Качественно, недорого"
         lang="ru"
         keywords={[

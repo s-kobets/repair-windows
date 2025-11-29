@@ -43,13 +43,17 @@ const Feedback = () => {
 
   const [feedbackList, setFeedbackList] = useState([])
 
-  useEffect(async () => {
-    fetch("/.netlify/functions/get-feedback")
-      .then(res => res.json())
-      .then(res => {
-        setFeedbackList(res?.records ?? [])
-      })
-      .catch(error => console.error(error))
+  useEffect(() => {
+    async function fetchFeedback() {
+      try {
+        const res = await fetch("/.netlify/functions/get-feedback")
+        const data = await res.json()
+        setFeedbackList(data?.records ?? [])
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchFeedback()
   }, [])
 
   return (

@@ -20,6 +20,10 @@ const Form = () => {
     shouldFocusError: false,
   })
 
+  const handlePhoneInput = (e) => {
+    e.target.value = e.target.value.replace(/[^0-9+\-() ]/g, '')
+  }
+
   const onSubmit = async (data, e) => {
     e.preventDefault()
     try {
@@ -70,41 +74,46 @@ const Form = () => {
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
           <Text size={300} tag="label" mt={5} mb={1} htmlFor="email">
-            E-mail или телефон
+            Телефон <Text tag="span" color="red">*</Text>
           </Text>
 
           <Tooltip
-            size="l"
-            interaction={errors["email"] ? "focus" : "none"}
+            visible={!!errors["email"]}
             placement={["right", "top"][index]}
             theme="warning"
             title={errors["email"]?.message}
-            tag={Input}
-            state={errors["email"] ? "invalid" : "normal"}
           >
-            <Input.Value
-              id="email"
-              name="email"
-              ref={register({ required: "Введите e-mail или phone" })}
-            />
+            <Tooltip.Trigger
+              tag={Input}
+              size="l"
+              state={errors["email"] ? "invalid" : "normal"}
+            >
+              <Input.Value
+                id="email"
+                name="email"
+                ref={register({ required: "Введите телефон" })}
+                onInput={handlePhoneInput}
+              />
+            </Tooltip.Trigger>
           </Tooltip>
 
           <Text size={300} tag="label" mt={10} mb={1} htmlFor="name">
-            Ваше имя
+            Ваше имя <Text tag="span" color="red">*</Text>
           </Text>
-          <Input size="l">
-            <Input.Value name="name" id="name" ref={register} />
+          <Input size="l" state={errors["name"] ? "invalid" : "normal"}>
+            <Input.Value name="name" id="name" ref={register({ required: "Введите имя" })} />
           </Input>
 
           <Text size={300} tag="label" mt={10} mb={1} htmlFor="trable">
-            Ваша проблема
+            Ваша проблема <Text tag="span" color="red">*</Text>
           </Text>
           <Textarea
             id="trable"
             name="trable"
             size="l"
             rows={5}
-            ref={register}
+            ref={register({ required: "Опишите проблему" })}
+            state={errors["trable"] ? "invalid" : "normal"}
           />
           <Button
             type="submit"
