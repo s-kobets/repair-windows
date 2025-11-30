@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
+import { StaticImage } from "gatsby-plugin-image"
 
 import { Flex, Box } from "@semcore/flex-box"
 import { Text } from "@semcore/typography"
@@ -10,6 +10,7 @@ import { Col, Row } from "@semcore/grid"
 import Form from "../components/form"
 import Breakpoints from "@semcore/breakpoints"
 import Feedback from "../components/feedback"
+import WorkIcon from "../components/work-icon"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -71,12 +72,15 @@ const IndexInnerPage = ({ index }) => {
       }
       allContentfulRepairWindowWork {
         nodes {
+          id
           title
           description {
             description
           }
           icon {
-            gatsbyImageData
+            file {
+              url
+            }
           }
         }
       }
@@ -108,11 +112,15 @@ const IndexInnerPage = ({ index }) => {
   return (
     <Layout>
       <Seo
-        title="Ремонт окон, Москва и Московская область, Санкт-Петербург и Ленинградская область"
-        description="Качественно, недорого"
+        title="Ремонт окон в Москве и Московской области, Санкт-Петербурге и Ленинградской области"
+        description="Профессиональный ремонт и обслуживание окон. Опыт более 7 лет. Гарантия 12 месяцев. Качественно, оперативно, по смете!"
         lang="ru"
         keywords={[
           "ремонт окон",
+          "ремонт окон Москва",
+          "ремонт окон Санкт-Петербург",
+          "ремонт окон Московская область",
+          "ремонт окон Ленинградская область",
           "ремонт разбитых окон",
           "ремонт двойных панелей",
           "ремонт рамы",
@@ -269,7 +277,7 @@ const IndexInnerPage = ({ index }) => {
         </Text>
 
         <Row gutter={10} mt={10} justifyContent="center">
-          {data.allContentfulRepairWindowWork.nodes.reverse().map(item => (
+          {data.allContentfulRepairWindowWork.nodes.sort((a, b) => a.id - b.id).map(item => (
             <Col
               key={item.title}
               span={4}
@@ -287,10 +295,7 @@ const IndexInnerPage = ({ index }) => {
                 h="100px"
                 style={{ borderRadius: "50%", overflow: "hidden" }}
               >
-                <GatsbyImage
-                  image={getImage(item.icon.gatsbyImageData)}
-                  alt={item.title}
-                />
+                <WorkIcon iconPath={item.icon.file.url} alt={item.title} />
               </Box>
               <Text textAlign="center" size={400} my={3} bold>
                 {item.title}

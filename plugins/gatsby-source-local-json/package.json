@@ -1,0 +1,9 @@
+{
+  "name": "gatsby-source-local-json",
+  "version": "1.0.0",
+  "description": "Gatsby source plugin to load data from local JSON instead of Contentful",
+  "main": "gatsby-node.js",
+  "keywords": ["gatsby", "gatsby-plugin", "gatsby-source"],
+  "author": "",
+  "license": "MIT"
+}
