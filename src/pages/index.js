@@ -229,10 +229,7 @@ const IndexInnerPage = ({ index }) => {
                 direction="column"
                 justifyContent="space-between"
                 alignItems="center"
-                style={{
-                  border: "1px solid gray",
-                  borderRadius: "4px",
-                }}
+                className="service-card"
               >
                 <Text textAlign="center" size={400} bold>
                   {item.title}
@@ -272,7 +269,7 @@ const IndexInnerPage = ({ index }) => {
         justifyContent="center"
         style={{ background: "#00a3f833" }}
       >
-        <Text tag="h2" mt={10}>
+        <Text tag="h2" mt={10} style={{ textAlign: 'center' }}>
           Как мы работаем
         </Text>
 
@@ -289,11 +286,12 @@ const IndexInnerPage = ({ index }) => {
               justifyContent="center"
               tag={Flex}
               wMax="320px"
+              className="work-item"
             >
               <Box
                 w="100px"
                 h="100px"
-                style={{ borderRadius: "50%", overflow: "hidden" }}
+                className="work-icon-wrapper"
               >
                 <WorkIcon iconPath={item.icon.file.url} alt={item.title} />
               </Box>
@@ -333,7 +331,8 @@ const IndexInnerPage = ({ index }) => {
       <Flex
         p={10}
         direction="column"
-        style={{ backgroundColor: "#303030", color: "#fff" }}
+        className="footer-gradient"
+        style={{ color: "#fff" }}
       >
         <Text size={400} bold mb={2}>
           {contact.fullName}
